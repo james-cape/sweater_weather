@@ -1,7 +1,7 @@
 class Api::V1::ForecastController < Api::V1::ApiBaseController
 
   def index
-    coordinates = CoordinateService.new(params[:location]).get_results
+    coordinates = CoordinateService.new.get_results(params[:location])
 
     forecast = ForecastService.new(coordinates)
 
