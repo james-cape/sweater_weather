@@ -1,20 +1,19 @@
 require 'rails_helper'
 
-describe 'forecasts API' do
-  it 'sends a forecast' do
-    forecast_1 = create(:forecast)
-    create(:forecast)
-    create(:forecast)
+describe 'coordinates API' do
+  it 'gets a forecast for the city and state' do
+    # coordinate_1 = create(:coordinate)
+    # create(:coordinate)
+    # create(:coordinate)
 
     get '/api/v1/forecast?location=denver,co'
 
     expect(response).to be_successful
 
     forecast = JSON.parse(response.body)
-
-    # expect(forecasts["data"].count).to eq(3)
-    # expect(forecasts["data"][0]["attributes"]["creator"]).to eq(forecast_1.creator)
-    # expect(forecasts["data"][0]["attributes"]["commit_forecasts"]).to eq(forecast_1.commit_forecasts)
+    # expect(coordinates["data"].count).to eq(3)
+    # expect(coordinates["data"][0]["attributes"]["creator"]).to eq(coordinate_1.creator)
+    # expect(coordinates["data"][0]["attributes"]["commit_coordinates"]).to eq(coordinate_1.commit_coordinates)
 
   end
 end
