@@ -4,7 +4,16 @@ class CoordinateService
 
   def get_results(address)
     data = { address: address }
-    get_json("geocode/json", data)[:results][0][:geometry][:location]
+    results = get_json("geocode/json", data)[:results][0]
+
+    citystate = "#{results[:address_components][0][:short_name]}, #{results[:address_components][2][:short_name]}"
+    country = results[:address_components][3][:long_name]
+
+    {
+      coordinates: results[:geometry][:location],
+      citystate: citystate,
+      country: country
+    }
   end
 
   private
