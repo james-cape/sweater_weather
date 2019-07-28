@@ -4,9 +4,12 @@ describe CoordinateService do
   it 'turns city,state into lat/long' do
     service = CoordinateService.new
 
-    latlong = service.get_results('denver,co')
+    location = service.get_results('denver,co')
 
-    expect(latlong).to have_key(:lat)
-    expect(latlong).to have_key(:lng)
+    expect(location).to have_key(:citystate)
+    expect(location).to have_key(:country)
+    expect(location).to have_key(:coordinates)
+    expect(location[:coordinates]).to have_key(:lat)
+    expect(location[:coordinates]).to have_key(:lng)
   end
 end

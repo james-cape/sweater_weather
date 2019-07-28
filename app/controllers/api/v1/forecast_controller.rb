@@ -1,11 +1,14 @@
 class Api::V1::ForecastController < Api::V1::ApiBaseController
 
-  def show
-    coordinates = CoordinateService.new.get_results(params[:location])
-require 'pry'; binding.pry
-    forecast = ForecastService.new(coordinates)
+  def index
+    location = CoordinateService.new.get_results(params[:location])
 
-    filtered_forecast = ForecastSerializer.new(forecast)
+    forecast = ForecastService.new.get_results(location[:coordinates])
+
+    filtered_forecast = ForecastSerializer.new(forecast, location[:citystate], location[:country])
     # render status: 201, json: {}
+require 'pry'; binding.pry
+    # render json: ForecastSerializer.new(forecast, location[:citystate], location[:country])
+
   end
 end

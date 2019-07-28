@@ -1,10 +1,13 @@
 class ForecastSerializer
-  include FastJsonapi::ObjectSerializer
-  # attributes :id, :item_id, :invoice_id, :quantity
 
-
-  def initialize(forecast)
+  def initialize(forecast, citystate, country)
+    # @forecast = snapshot(forecast)
     @forecast = forecast
+    @citystate = citystate
+    @country = country
+    @days = (0..4).to_a
+    @hours = (0..7).to_a
+    @current_time = Time.now
   end
 
   def snapshot
@@ -13,9 +16,9 @@ class ForecastSerializer
       temperature:          @forecast[:currently][:temperature],
       temperature_high:     @forecast[:daily][:data][0][:temperatureHigh],
       temperature_low:      @forecast[:daily][:data][0][:temperatureLow],
-      city_state:
-      country:
-      time_date             Time.now #format this as '11:11 pm, 10/31'
+      city_state:           @citystate,
+      country:              @country,
+      time_date:            @current_time.strftime("%I:%M %p") + ", " + @current_time.strftime("%m") + "/" + @current_time.strftime("%d")
     }
   end
 
@@ -31,48 +34,55 @@ class ForecastSerializer
     }
   end
 
-
-  def forecast(day = 0, hour = 0)
+  def hourly_data
     {
-      hourly: {
-        temperature:        @forecast[:hourly][:data][hour][:temperature]
-      },
-
-      daily: {
-        icon:               @forecast[:daily][:data][day][:icon],
-        precip_probability: @forecast[:daily][:data][day][:precipProbability],
-        temperature_high:   @forecast[:daily][:data][day][:temperatureHigh],
-        temperature_low:    @forecast[:daily][:data][day][:temperatureLow]
-      }
+      temperature: hourly_temperature
     }
   end
 
-  def uv_risk(index)
-    if index < 3
-      'Low'
-    elsif index < 6
-      'Moderate'
-    elsif index < 8
-      'High'
-    elsif index < 11
-      'Very High'
-    else
-      'Extreme'
-    end
+  def daily_data
+    {
+      icon:               daily_icon,
+      precip_probability: daily_precip_probability,
+      temperature_high:   daily_temperature_high,
+      temperature_low:    daily_temperature_low
+    }
   end
 
+  private
 
+    def hourly_temperature
+      @hours.map { |hour| @forecast[:hourly][:data][hour][:temperature] }
+    end
 
+    def daily_icon
+      @days.map { |day| @forecast[:daily][:data][day][:icon] }
+    end
+
+    def daily_precip_probability
+      @days.map { |day| @forecast[:daily][:data][day][:precipProbability] }
+    end
+
+    def daily_temperature_high
+      @days.map { |day| @forecast[:daily][:data][day][:temperatureHigh] }
+    end
+
+    def daily_temperature_low
+      @days.map { |day| @forecast[:daily][:data][day][:temperatureLow] }
+    end
+
+    def uv_risk(index)
+      if index < 3
+        'Low'
+      elsif index < 6
+        'Moderate'
+      elsif index < 8
+        'High'
+      elsif index < 11
+        'Very High'
+      else
+        'Extreme'
+      end
+    end
 
 end
-
-
-# class InvoiceItemSerializer
-#   include FastJsonapi::ObjectSerializer
-#   attributes :id, :item_id, :invoice_id, :quantity
-#
-#   attribute :unit_price do |object|
-#     (object.unit_price.to_f/100).to_s
-#   end
-#
-# end

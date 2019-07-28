@@ -4,8 +4,13 @@ describe ForecastService do
   it 'turns lat/long into forecast in json' do
     service = ForecastService.new
 
-    coordinates = {lat: 39.7392358, lng: -104.990251}
-    forecast = service.get_results(coordinates)
+    location = {
+      coordinates: {
+        lat: 39.7392358, lng: -104.990251
+      }
+    }
+
+    forecast = service.get_results(location[:coordinates])
 
     expect(forecast[:currently]).to have_key(:summary)
     expect(forecast[:currently]).to have_key(:temperature)
