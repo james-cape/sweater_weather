@@ -19,7 +19,6 @@ describe ForecastService do
     expect(forecast[:daily][:data][0]).to have_key(:visibility)
     expect(forecast[:daily][:data][0]).to have_key(:uvIndex)
     expect(forecast[:daily][:data][0]).to have_key(:precipProbability)
-    expect(forecast[:daily][:data][0]).to have_key(:uvIndex)
     expect(forecast[:daily][:data][0]).to have_key(:icon)
     expect(forecast[:daily]).to have_key(:summary)
   end
