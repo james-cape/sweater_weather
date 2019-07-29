@@ -8,14 +8,6 @@ class DurationService
       finish: finish
     }
     get_json("directions/json", data)[:routes][0][:legs][0][:duration]
-    # citystate = "#{results[:address_components][0][:short_name]}, #{results[:address_components][2][:short_name]}"
-    # country = results[:address_components][3][:long_name]
-    #
-    # {
-    #   coordinates: results[:geometry][:location],
-    #   citystate: citystate,
-    #   country: country
-    # }
   end
 
   private
