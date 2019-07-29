@@ -39,8 +39,7 @@ class ForecastSerializer
         apparent_temperature: @forecast[:hourly][:data][0][:apparentTemperature],
         humidity:             @forecast[:daily][:data][0][:humidity],
         visibility:           @forecast[:daily][:data][0][:visibility],
-        uv_index:             @forecast[:daily][:data][0][:uvIndex],
-        uv_index_risk:        uv_risk(@forecast[:daily][:data][0][:uvIndex])
+        uv_index:             "#{@forecast[:daily][:data][0][:uvIndex]} (#{uv_risk(@forecast[:daily][:data][0][:uvIndex])})"
       }
     end
 
