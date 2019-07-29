@@ -9,8 +9,13 @@ describe 'background image API' do
 
     results = JSON.parse(response.body, symbolize_names: true)
 
-    # expect(results.keys).to contain_exactly(:images)
-    # expect(results.class).to eq(Hash)
-    # expect(results[:images].class).to eq(Array)
+    expect(results.keys).to contain_exactly(:end_city, :restaurants)
+    expect(results.class).to eq(Hash)
+    expect(results[:end_city].class).to eq(String)
+    expect(results[:restaurants].class).to eq(Array)
+    expect(results[:restaurants].count).to eq(3)
+    expect(results[:restaurants][0].keys).to contain_exactly(:name, :address)
+    expect(results[:restaurants][0][:name].class).to eq(String)
+    expect(results[:restaurants][0][:address].class).to eq(String)
   end
 end
