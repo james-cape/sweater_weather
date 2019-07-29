@@ -7,14 +7,10 @@ describe 'background image API' do
 
     expect(response).to be_successful
 
-    image = JSON.parse(response.body, symbolize_names: true)
+    results = JSON.parse(response.body, symbolize_names: true)
 
-    expect(image.keys).to contain_exactly(
-      :background_image
-      # :snapshot,
-      # :details,
-      # :hourly_data,
-      # :daily_data
-    )
+    expect(results.keys).to contain_exactly(:images)
+    expect(results.class).to eq(Hash)
+    expect(results[:images].class).to eq(Array)
   end
 end
