@@ -3,26 +3,28 @@ class RestaurantService
   def initialize; end
 
   def get_restaurants(restaurant_params, duration)
-
-    # eta = (Time.now + 4.hours).to_i
-    results = get_json("search?location=#{restaurant_params[:end]}", duration[:value])
-    require 'pry'; binding.pry
-    # results.map { |result| result[:url_o] }.compact!.first(quantity)
+    results = get_json("search?", duration[:value], restaurant_params[:end])
+    results[:businesses].map do |result|
+      {
+        name: result[:name],
+        address: "#{result[:location][:address1]}, #{result[:location][:city]}, #{result[:location][:state]} #{result[:location][:zip_code]}"
+      }
+    end
   end
 
   private
 
-  def get_json(path, time_in_sec)
-    response = conn(time_in_sec).get(path)
+  def get_json(path, time_in_sec, location)
+    response = conn(time_in_sec, location).get(path)
     JSON.parse(response.body, symbolize_names: true)
   end
 
-  def conn(time_in_sec)
+  def conn(time_in_sec, location)
     Faraday.new('https://api.yelp.com/v3/businesses/') do |f|
       f.params['open_at'] = (Time.now + time_in_sec / (60 * 60).hours).to_i
-      f.params['categories'] = 'restaurants'
+      f.params['categories'] = 'chinese'
       f.params['limit'] = 3
-      # f.params['location'] = 'denver,co'
+      f.params['location'] = location
       f.authorization :Bearer, "#{ENV['YELP_API_KEY']}"
       f.adapter Faraday.default_adapter
     end
