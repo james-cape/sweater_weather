@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe RestaurantService do
-  it 'returns destination and three open restaurants at ETA' do
+  it 'returns three open restaurants at ETA' do
     service = RestaurantService.new
 
     duration = {
