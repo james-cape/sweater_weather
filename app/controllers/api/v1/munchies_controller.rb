@@ -4,16 +4,11 @@ class Api::V1::MunchiesController < Api::V1::ApiBaseController
     # require 'pry'; binding.pry
 
     duration = DurationService.new.get_duration(params[:start], params[:end])
-    require 'pry'; binding.pry
 
     restaurants = RestaurantService.new.get_restaurants(params, duration)
 
+    render json: MunchiesSerializer.new(restaurants, params[:end]).find_restaurants
 
-
-    # render json: MunchiesSerializer.new(unfiltered_forecast,
-                                               # location[:citystate],
-                                               # location[:country])
-                                               # .forecast_all
   end
 
   private
