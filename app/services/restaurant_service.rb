@@ -13,7 +13,6 @@ class RestaurantService
                  "#{result[:location][:zip_code]}"
       }
     end
-    require 'pry'; binding.pry
   end
 
   private

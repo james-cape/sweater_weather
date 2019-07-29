@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'background image API' do
-  it 'gets a background image for the city and state' do
+describe MunchiesSerializer do
+  it 'gets a destination and three open Chinese restaurants at arrival time' do
 
     get '/api/v1/munchies?start=denver,co&end=pueblo,co&food=chinese Content-Type: application/json Accept: application/json'
 
