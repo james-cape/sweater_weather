@@ -12,17 +12,17 @@ class DurationService
 
   private
 
-  def get_json(path, data)
-    response = conn.get(path, data)
-    JSON.parse(response.body, symbolize_names: true)
-  end
-
-  def conn
-    Faraday.new('https://maps.googleapis.com/maps/api/') do |f|
-      f.params['origin'] = 'denver,co'
-      f.params['destination'] = 'pueblo,co'
-      f.params['key'] = ENV['GEOCODE_GOOGLE_API_KEY']
-      f.adapter Faraday.default_adapter
+    def get_json(path, data)
+      response = conn(data).get(path)
+      JSON.parse(response.body, symbolize_names: true)
     end
-  end
+
+    def conn(data)
+      Faraday.new('https://maps.googleapis.com/maps/api/') do |f|
+        f.params['origin'] = data[:start]
+        f.params['destination'] = data[:finish]
+        f.params['key'] = ENV['GEOCODE_GOOGLE_API_KEY']
+        f.adapter Faraday.default_adapter
+      end
+    end
 end
