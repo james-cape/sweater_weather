@@ -17,6 +17,9 @@ class RestaurantService
 
   def conn(location)
     Faraday.new('https://api.yelp.com/v3/businesses/') do |f|
+      # f.params['open_at'] = Time.now.to_i
+      f.params['open_at'] = (Time.now + 8.hours)
+
       f.params['location'] = location
       f.authorization :Bearer, "#{ENV['YELP_API_KEY']}"
       f.adapter Faraday.default_adapter
