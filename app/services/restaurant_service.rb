@@ -3,7 +3,8 @@ class RestaurantService
   def initialize; end
 
   def get_restaurants(restaurant_params, duration)
-    results = get_json("search?", duration[:value], restaurant_params[:end])
+    # require 'pry'; binding.pry
+    results = get_json("search?", duration[:value], restaurant_params[:end], restaurant_params[:food])
     results[:businesses].map do |result|
       {
         name: result[:name],
@@ -17,15 +18,15 @@ class RestaurantService
 
   private
 
-    def get_json(path, time_in_sec, location)
-      response = conn(time_in_sec, location).get(path)
+    def get_json(path, time_in_sec, location, food)
+      response = conn(time_in_sec, location, food).get(path)
       JSON.parse(response.body, symbolize_names: true)
     end
 
-    def conn(time_in_sec, location)
+    def conn(time_in_sec, location, food)
       Faraday.new('https://api.yelp.com/v3/businesses/') do |f|
         f.params['open_at'] = arrival_time(time_in_sec)
-        f.params['categories'] = 'chinese'
+        f.params['categories'] = food
         f.params['limit'] = 3
         f.params['location'] = location
         f.authorization :Bearer, "#{ENV['YELP_API_KEY']}"
@@ -34,7 +35,7 @@ class RestaurantService
     end
 
     def arrival_time(time_in_sec)
-       Time.now.to_i + time_in_sec #(doesn’t work)
-      # (Time.now + (time_in_sec / (60 * 60)).hours).to_i
+       # Time.now.to_i + time_in_sec #(doesn’t work)
+      (Time.now + (time_in_sec / (60 * 60)).hours).to_i
     end
 end
