@@ -8,7 +8,6 @@ class DurationService
       finish: finish
     }
     get_json("directions/json", data)[:routes][0][:legs][0][:duration]
-require 'pry'; binding.pry
     # citystate = "#{results[:address_components][0][:short_name]}, #{results[:address_components][2][:short_name]}"
     # country = results[:address_components][3][:long_name]
     #

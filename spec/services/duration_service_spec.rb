@@ -4,10 +4,12 @@ describe DurationService do
   it 'returns duration of a trip from start to end' do
     service = DurationService.new
 
-    images = service.get_results('denver,co', 1)
+    duration = service.get_duration('denver,co', 'pueblo,co')
 
-    # expect(images.class).to eq(Array)
-    # expect(images[0].class).to eq(String)
-    # expect(images[0]).to start_with("http")
+    expect(duration.class).to eq(Hash)
+    expect(duration).to have_key(:text)
+    expect(duration).to have_key(:value)
+    expect(duration[:text].class).to eq(String)
+    expect(duration[:value].class).to eq(Integer)
   end
 end
