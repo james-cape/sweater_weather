@@ -1,7 +1,7 @@
 class Api::V1::MunchiesController < Api::V1::ApiBaseController
 
   def index
-    render json: MunchiesSerializer.new(restaurants, params[:end]).find_restaurants
+    render json: MunchiesSerializer.new(restaurants, params[:end]).find_munchies
   end
 
   private

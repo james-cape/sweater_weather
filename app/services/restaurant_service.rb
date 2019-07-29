@@ -7,9 +7,13 @@ class RestaurantService
     results[:businesses].map do |result|
       {
         name: result[:name],
-        address: "#{result[:location][:address1]}, #{result[:location][:city]}, #{result[:location][:state]} #{result[:location][:zip_code]}"
+        address: "#{result[:location][:address1]}, " +
+                 "#{result[:location][:city]}, " +
+                 "#{result[:location][:state]} " +
+                 "#{result[:location][:zip_code]}"
       }
     end
+    require 'pry'; binding.pry
   end
 
   private

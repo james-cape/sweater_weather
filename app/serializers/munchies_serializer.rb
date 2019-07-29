@@ -5,7 +5,7 @@ class MunchiesSerializer
     @destination = destination
   end
 
-  def find_restaurants
+  def find_munchies
     {
       end_city: @destination,
       restaurants: @restaurants
