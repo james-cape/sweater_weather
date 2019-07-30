@@ -2,11 +2,12 @@ require 'rails_helper'
 
 describe 'logging in' do
   it 'allows a user to log in' do
+    user_1 = create(:user)
 
     params = {
       user: {
-        email: "whatever@example.com",
-        password: "password",
+        email: user_1.email,
+        password: user_1.password,
       }
     }
 
