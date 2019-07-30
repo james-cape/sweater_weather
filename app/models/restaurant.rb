@@ -1,8 +1,20 @@
 class Restaurant
-  attr_reader :name, :address
+  attr_reader :id, :location, :restaurant_list
 
-  def initialize(attributes)
-    @name = attributes[:name]
-    @address = attributes[:location][:display_address].join(", ")
+  def initialize(attributes, location)
+    @attributes = attributes
+    @location = location
+    @id = 1
+    @restaurant_list = restaurant_list
+  end
+
+  def restaurant_list
+    @attributes.map do |attribute|
+      {
+        id: attribute[:id],
+        name: attribute[:name],
+        address: attribute[:location][:display_address][0]
+      }
+    end
   end
 end
