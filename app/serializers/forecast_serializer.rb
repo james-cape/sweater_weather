@@ -1,6 +1,6 @@
 class ForecastSerializer
 
-  def initialize(forecast, citystate, country)
+  def initialize(forecast, citystate, country = nil)
     @forecast = forecast
     @citystate = citystate
     @country = country
@@ -18,7 +18,22 @@ class ForecastSerializer
     }
   end
 
+  def forecast_at(seconds)
+    {
+      temperature: @forecast[:currently][:temperature],
+      forecast_summary: @forecast[:currently][:summary],
+      estimated_travel_time: duration_formatted(seconds)
+    }
+  end
+
   private
+
+    def duration_formatted(seconds)
+      {
+        hours: Time.at(seconds).utc.strftime("%H"),
+        minutes: Time.at(seconds).utc.strftime("%M")
+      }
+    end
 
     def snapshot
       {

@@ -16,7 +16,7 @@ describe 'road trip' do
       # expect(response.status).to eq(201)
 
       results = JSON.parse(response.body, symbolize_names: true)
-
+require 'pry'; binding.pry
       # temperature
       # forecast summary
       # estimated travel time
@@ -40,12 +40,6 @@ describe 'road trip' do
 
       expect(response).to_not be_successful
       expect(response.status).to eq(401)
-
-      # results = JSON.parse(response.body, symbolize_names: true)
-      #
-      # expect(User.last.email).to eq(params[:user][:email])
-      # expect(results.keys).to contain_exactly(:api_key)
-      # expect(results[:api_key].class).to eq(String)
     end
   end
 end
