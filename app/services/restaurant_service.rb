@@ -3,17 +3,21 @@ class RestaurantService
   def initialize; end #This extra functionality (address formatting, arrival time) could have been put into a facade
 
   def get_restaurants(restaurant_params, duration)
-    results = get_json("search?", duration[:value], restaurant_params[:end], restaurant_params[:food])
-    results[:businesses].map do |result|
-      {
-        name: result[:name],
-        address: "#{result[:location][:address1]}, " +
-                 "#{result[:location][:city]}, " +
-                 "#{result[:location][:state]} " +
-                 "#{result[:location][:zip_code]}"
-      } # Could have created a restaurant object so these attributes could be easier to access than how I have it now
+    get_json("search?", duration[:value], restaurant_params[:end], restaurant_params[:food])
+
+
+
+    # results[:businesses].map do |result|
+      # {
+      #   name: result[:name],
+      #   address: "#{result[:location][:address1]}, " +
+      #            "#{result[:location][:city]}, " +
+      #            "#{result[:location][:state]} " +
+      #            "#{result[:location][:zip_code]}"
+      # } # Could have created a restaurant object so these attributes could be easier to access than how I have it now
         # Could have put the map function into a facade too
-    end
+    # end
+
   end
 
   private

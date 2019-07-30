@@ -11,6 +11,10 @@ class Api::V1::MunchiesController < Api::V1::ApiBaseController
     end
 
     def restaurants
-      RestaurantService.new.get_restaurants(params, duration)
+      restaurants = RestaurantService.new.get_restaurants(params, duration)[:businesses]
+
+      restaurants.map do |restaurant|
+        Restaurant.new(restaurant)
+      end
     end
 end
