@@ -1,7 +1,5 @@
 class BackgroundService
 
-  def initialize; end
-
   def get_results(location, quantity)
     results = get_json("rest/", location)[:photos][:photo]
     results.map { |result| result[:url_o] }.compact!.first(quantity)

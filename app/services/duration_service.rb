@@ -1,7 +1,5 @@
 class DurationService
 
-  def initialize; end #Don't need this at all here
-
   def get_duration(start, finish)
     data = {
       start: start,

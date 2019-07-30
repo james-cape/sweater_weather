@@ -1,7 +1,5 @@
 class ForecastService
 
-  def initialize; end
-
   def get_results(latlong, time_in_sec = nil)
     if time_in_sec
       forecast_time = (Time.now + (time_in_sec / (60 * 60)).hours).to_i
