@@ -1,15 +1,19 @@
 class Api::V1::UsersController < Api::V1::ApiBaseController
 
   def create
-require 'pry'; binding.pry
-
-    
-    render json: UserSerializer.new(images)
+    user = User.new(user_params)
+    if user.save
+      user.update(token: SecureRandom.hex(27))
+      require 'pry'; binding.pry
+      render status: 201, json: UserSerializer.new(user).return_token
+    else
+      render status: 201, json: {}
+    end
   end
 
   private
 
-    # def images
-    #   UserService.new.get_results(params[:location], 1)
-    # end
+  def user_params
+    params.require(:user).permit(:email, :password)
+  end
 end
