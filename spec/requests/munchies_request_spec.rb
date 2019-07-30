@@ -19,3 +19,5 @@ describe MunchiesSerializer do
     expect(results[:restaurants][0][:address].class).to eq(String)
   end
 end
+
+# Could have tested sad paths 400 response, and gibberish input 
