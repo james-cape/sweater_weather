@@ -18,7 +18,7 @@ describe 'registration' do
     # results = JSON.parse(response.body, symbolize_names: true)
 
 
-
+require 'pry'; binding.pry
     expect(User.last.email).to eq("whatever@example.com")
 
     expect(page).to have_content("Welcome, #{new_user.user_name}!")
