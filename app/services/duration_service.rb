@@ -1,6 +1,6 @@
 class DurationService
 
-  def initialize; end
+  def initialize; end #Don't need this at all here
 
   def get_duration(start, finish)
     data = {
@@ -12,7 +12,7 @@ class DurationService
 
   private
 
-    def get_json(path, data)
+    def get_json(path, data) #This would be a good use for a module (Application Controller would be too widespread)
       response = conn(data).get(path)
       JSON.parse(response.body, symbolize_names: true)
     end

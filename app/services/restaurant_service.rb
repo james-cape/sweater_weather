@@ -1,9 +1,8 @@
 class RestaurantService
 
-  def initialize; end
+  def initialize; end #This extra functionality (address formatting, arrival time) could have been put into a facade
 
   def get_restaurants(restaurant_params, duration)
-    # require 'pry'; binding.pry
     results = get_json("search?", duration[:value], restaurant_params[:end], restaurant_params[:food])
     results[:businesses].map do |result|
       {
@@ -12,7 +11,8 @@ class RestaurantService
                  "#{result[:location][:city]}, " +
                  "#{result[:location][:state]} " +
                  "#{result[:location][:zip_code]}"
-      }
+      } # Could have created a restaurant object so these attributes could be easier to access than how I have it now
+        # Could have put the map function into a facade too
     end
   end
 
