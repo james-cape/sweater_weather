@@ -32,8 +32,7 @@ describe 'coordinates API' do
       :apparent_temperature,
       :humidity,
       :visibility,
-      :uv_index,
-      :uv_index_risk
+      :uv_index
     )
 
     expect(forecast[:hourly_data].keys).to contain_exactly(
@@ -49,5 +48,10 @@ describe 'coordinates API' do
 
     expect(forecast[:hourly_data][:temperature].length).to eq(8)
     expect(forecast[:daily_data][:icon].length).to eq(5)
+
+    uv_string = forecast[:details][:uv_index].split( /  */, 2 )
+    expect(['(Low)', '(Moderate)', '(High)', '(Very High)', '(Extreme)'].any? { |word| uv_string.include?(word)}).to eq(true)
+
+    # expect(forecast[:details][:uv_index].include?('Low', 'Moderate', 'High', 'Very High', 'Extreme')).to eq(true)
   end
 end
