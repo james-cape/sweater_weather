@@ -5,10 +5,8 @@ describe 'logging in' do
     user_1 = create(:user)
 
     params = {
-      user: {
-        email: user_1.email,
-        password: user_1.password,
-      }
+      email: user_1.email,
+      password: user_1.password
     }
 
     post '/api/v1/sessions', params: params
