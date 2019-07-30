@@ -14,25 +14,12 @@ describe 'registration' do
     post '/api/v1/users', params: params
 
     expect(response).to be_successful
+    expect(response.status).to eq(201)
 
-    # results = JSON.parse(response.body, symbolize_names: true)
+    results = JSON.parse(response.body, symbolize_names: true)
 
-
-require 'pry'; binding.pry
-    expect(User.last.email).to eq("whatever@example.com")
-
-    expect(page).to have_content("Welcome, #{new_user.user_name}!")
-
-
-    # require 'pry'; binding.pry
-
-    # expect(results.keys).to contain_exactly(:end_city, :restaurants)
-    # expect(results.class).to eq(Hash)
-    # expect(results[:end_city].class).to eq(String)
-    # expect(results[:restaurants].class).to eq(Array)
-    # expect(results[:restaurants].count).to eq(3)
-    # expect(results[:restaurants][0].keys).to contain_exactly(:name, :address)
-    # expect(results[:restaurants][0][:name].class).to eq(String)
-    # expect(results[:restaurants][0][:address].class).to eq(String)
+    expect(User.last.email).to eq(params[:user][:email])
+    expect(results.keys).to contain_exactly(:api_key)
+    expect(results[:api_key].class).to eq(String)
   end
 end
