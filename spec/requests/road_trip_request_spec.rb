@@ -13,17 +13,25 @@ describe 'road trip' do
       post '/api/v1/road_trip', params: params
 
       expect(response).to be_successful
-      # expect(response.status).to eq(201)
 
       results = JSON.parse(response.body, symbolize_names: true)
-require 'pry'; binding.pry
-      # temperature
-      # forecast summary
-      # estimated travel time
 
-      # expect(User.last.email).to eq(params[:user][:email])
-      # expect(results.keys).to contain_exactly(:api_key)
-      # expect(results[:api_key].class).to eq(String)
+      expect(results.keys).to contain_exactly(
+        :temperature,
+        :forecast_summary,
+        :estimated_travel_time
+      )
+
+      expect(results[:temperature].class).to eq(Float)
+      expect(results[:forecast_summary].class).to eq(String)
+
+      expect(results[:estimated_travel_time].keys).to contain_exactly(
+        :hours,
+        :minutes
+      )
+      
+      expect(results[:estimated_travel_time][:hours].class).to eq(String)
+      expect(results[:estimated_travel_time][:minutes].class).to eq(String)
     end
   end
 
