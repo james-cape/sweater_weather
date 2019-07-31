@@ -13,14 +13,11 @@ describe MunchiesSerializer do
     expect(results[:data].keys).to contain_exactly(:id, :type, :attributes)
     expect(results[:data][:attributes].keys).to contain_exactly(:location, :restaurant_list)
     expect(results[:data][:attributes][:location].class).to eq(String)
-    # expect(results[:data][:attributes][:restaurant_list].class).to eq(Array)
-    # expect(results[:data][:attributes][:restaurant_list].count).to eq(3)
-    # expect(results[:data][:attributes][:restaurant_list][0].keys).to contain_exactly(:id, :name, :address)
-    # expect(results[:data][:attributes][:restaurant_list][0][:id].class).to eq(String)
-    # expect(results[:data][:attributes][:restaurant_list][0][:name].class).to eq(String)
-    # expect(results[:data][:attributes][:restaurant_list][0][:address].class).to eq(String)
-    # ^ Failed during the night because no restaurants were open
+    expect(results[:data][:attributes][:restaurant_list].class).to eq(Array)
+    expect(results[:data][:attributes][:restaurant_list].count).to eq(3)
+    expect(results[:data][:attributes][:restaurant_list][0].keys).to contain_exactly(:id, :name, :address)
+    expect(results[:data][:attributes][:restaurant_list][0][:id].class).to eq(String)
+    expect(results[:data][:attributes][:restaurant_list][0][:name].class).to eq(String)
+    expect(results[:data][:attributes][:restaurant_list][0][:address].class).to eq(String)
   end
 end
-
-# Could have tested sad paths 400 response, and gibberish input

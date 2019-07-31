@@ -20,9 +20,16 @@ class ForecastSerializer
 
   def forecast_at(seconds)
     {
-      temperature: @forecast[:currently][:temperature],
-      forecast_summary: @forecast[:currently][:summary],
-      estimated_travel_time: duration_formatted(seconds)
+      jsonapi: { version: "1.0" },
+      data: {
+        type: "forecast",
+        id: "1",
+        attributes: {
+          temperature: @forecast[:currently][:temperature],
+          forecast_summary: @forecast[:currently][:summary],
+          estimated_travel_time: duration_formatted(seconds)
+        }
+      }
     }
   end
 

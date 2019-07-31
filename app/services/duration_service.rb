@@ -10,7 +10,7 @@ class DurationService
 
   private
 
-    def get_json(path, data) #This would be a good use for a module (Application Controller would be too widespread)
+    def get_json(path, data)
       response = conn(data).get(path)
       JSON.parse(response.body, symbolize_names: true)
     end

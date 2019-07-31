@@ -16,17 +16,16 @@ describe RestaurantService do
     }
 
     restaurants = service.get_restaurants(restaurant_params, duration)
+    first_restaurant = restaurants[:businesses][0]
 
     expect(restaurants.class).to eq(Hash)
     expect(restaurants[:businesses].class).to eq(Array)
 
-    # expect(restaurants[:businesses][0].keys).to include(:id, :name, :location)
-    # expect(restaurants[:businesses][0][:id].class).to eq(String)
-    # expect(restaurants[:businesses][0][:name].class).to eq(String)
-    # expect(restaurants[:businesses][0][:location].keys).to include(:display_address)
-    # expect(restaurants[:businesses][0][:location][:display_address].class).to eq(Array)
-    # expect(restaurants[:businesses][0][:location][:display_address][0].class).to eq(String)
-# ^^ Closed for the night??
-
+    expect(first_restaurant.keys).to include(:id, :name, :location)
+    expect(first_restaurant[:id].class).to eq(String)
+    expect(first_restaurant[:name].class).to eq(String)
+    expect(first_restaurant[:location].keys).to include(:display_address)
+    expect(first_restaurant[:location][:display_address].class).to eq(Array)
+    expect(first_restaurant[:location][:display_address][0].class).to eq(String)
   end
 end
