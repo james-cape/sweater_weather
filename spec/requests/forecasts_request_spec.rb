@@ -30,7 +30,6 @@ describe 'coordinates API' do
       :short_summary,
       :long_summary,
       :apparent_temperature,
-      :humidity,
       :visibility,
       :uv_index
     )
@@ -48,10 +47,18 @@ describe 'coordinates API' do
 
     expect(forecast[:hourly_data][:temperature].length).to eq(8)
     expect(forecast[:daily_data][:icon].length).to eq(5)
+  end
 
-    uv_string = forecast[:details][:uv_index].split( /  */, 2 )
-    expect(['(Low)', '(Moderate)', '(High)', '(Very High)', '(Extreme)'].any? { |word| uv_string.include?(word)}).to eq(true)
-
-    # expect(forecast[:details][:uv_index].include?('Low', 'Moderate', 'High', 'Very High', 'Extreme')).to eq(true)
+  it 'generates risk profiles based on uv_index' do
+    expect(ForecastSerializer.new("1", "2").uv_risk(0)).to eq('Low')
+    expect(ForecastSerializer.new("1", "2").uv_risk(1)).to eq('Low')
+    expect(ForecastSerializer.new("1", "2").uv_risk(3)).to eq('Moderate')
+    expect(ForecastSerializer.new("1", "2").uv_risk(5)).to eq('Moderate')
+    expect(ForecastSerializer.new("1", "2").uv_risk(6)).to eq('High')
+    expect(ForecastSerializer.new("1", "2").uv_risk(7)).to eq('High')
+    expect(ForecastSerializer.new("1", "2").uv_risk(8)).to eq('Very High')
+    expect(ForecastSerializer.new("1", "2").uv_risk(10)).to eq('Very High')
+    expect(ForecastSerializer.new("1", "2").uv_risk(11)).to eq('Extreme')
+    expect(ForecastSerializer.new("1", "2").uv_risk(13)).to eq('Extreme')
   end
 end
