@@ -49,19 +49,4 @@ describe 'coordinates API' do
     expect(forecast[:hourly_data][:temperature].length).to eq(8)
     expect(forecast[:daily_data][:icon].length).to eq(5)
   end
-
-  it 'generates risk profiles based on uv_index' do
-    test_serializer = ForecastSerializer.new("1", "2")
-    
-    expect(test_serializer.uv_risk(0)).to eq('Low')
-    expect(test_serializer.uv_risk(1)).to eq('Low')
-    expect(test_serializer.uv_risk(3)).to eq('Moderate')
-    expect(test_serializer.uv_risk(5)).to eq('Moderate')
-    expect(test_serializer.uv_risk(6)).to eq('High')
-    expect(test_serializer.uv_risk(7)).to eq('High')
-    expect(test_serializer.uv_risk(8)).to eq('Very High')
-    expect(test_serializer.uv_risk(10)).to eq('Very High')
-    expect(test_serializer.uv_risk(11)).to eq('Extreme')
-    expect(test_serializer.uv_risk(13)).to eq('Extreme')
-  end
 end

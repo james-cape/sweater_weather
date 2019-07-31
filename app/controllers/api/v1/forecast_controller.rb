@@ -1,7 +1,7 @@
 class Api::V1::ForecastController < Api::V1::ApiBaseController
 
   def show
-    render json: ForecastSerializer.new(unfiltered_forecast,
+    render json: Forecast.new(unfiltered_forecast,
                                                location[:citystate],
                                                location[:country])
                                                .forecast_all

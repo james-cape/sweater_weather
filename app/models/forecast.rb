@@ -1,7 +1,9 @@
-class ForecastSerializer
+class Forecast
+  attr_reader :id, :forecast, :citystate, :country
 
-  def initialize(forecast, citystate, country = nil)
-    @forecast = forecast
+  def initialize(dark_sky_forecast, citystate, country = nil)
+    @id = 1
+    @forecast = dark_sky_forecast
     @citystate = citystate
     @country = country
     @days = (0..4).to_a
@@ -21,23 +23,19 @@ class ForecastSerializer
   def forecast_at(seconds)
     {
       jsonapi: { version: "1.0" },
+      id: '1',
       data: {
         type: "forecast",
         id: "1",
         attributes: {
           temperature: @forecast[:currently][:temperature],
           forecast_summary: @forecast[:currently][:summary],
-          estimated_travel_time: duration_formatted(seconds)
-        }
-      }
-    }
+          estimated_travel_time: duration_formatted(seconds) }}}
   end
 
   def duration_formatted(seconds)
-    {
-      hours: Time.at(seconds).utc.strftime("%H"),
-      minutes: Time.at(seconds).utc.strftime("%M")
-    }
+    { hours: Time.at(seconds).utc.strftime("%H"),
+      minutes: Time.at(seconds).utc.strftime("%M") }
   end
 
   def snapshot
