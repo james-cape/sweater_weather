@@ -7,11 +7,11 @@ class Api::V1::MunchiesController < Api::V1::ApiBaseController
   private
 
     def duration
-      DurationService.new.get_duration(params[:start], params[:end])
+      @duration ||= DurationService.new.get_duration(params[:start], params[:end])
     end
 
     def restaurants
-      restaurants = RestaurantService.new.get_restaurants(params, duration)[:businesses]
-      Restaurant.new(restaurants, params[:end])
+      @results ||= RestaurantService.new.get_restaurants(params, duration)[:businesses]
+      @restaurants ||= Restaurant.new(@results, params[:end])
     end
 end
