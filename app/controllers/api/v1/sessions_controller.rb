@@ -5,7 +5,7 @@ class Api::V1::SessionsController < Api::V1::ApiBaseController
     if user && user.authenticate(user_params[:password])
       render status: 200, json: UserSerializer.new(user).return_token
     else
-      render status: 200, json: {}
+      render status: 401, json: {}
     end
   end
 

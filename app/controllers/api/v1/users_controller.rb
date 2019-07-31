@@ -6,13 +6,13 @@ class Api::V1::UsersController < Api::V1::ApiBaseController
       user.update(token: SecureRandom.hex())
       render status: 201, json: UserSerializer.new(user).return_token
     else
-      render status: 201, json: {}
+      render status: 401, json: {}
     end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.permit(:email, :password)
   end
 end
