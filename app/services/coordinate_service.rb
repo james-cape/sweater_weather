@@ -1,7 +1,5 @@
 class CoordinateService
 
-  def initialize; end
-
   def get_results(address)
     data = { address: address }
     results = get_json("geocode/json", data)[:results][0]

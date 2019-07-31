@@ -25,6 +25,24 @@ describe ForecastService do
     expect(forecast[:daily][:data][0]).to have_key(:uvIndex)
     expect(forecast[:daily][:data][0]).to have_key(:precipProbability)
     expect(forecast[:daily][:data][0]).to have_key(:icon)
-    expect(forecast[:daily]).to have_key(:summary)
+    expect(forecast[:daily][:data][0]).to have_key(:summary)
   end
+  # it 'generates risk profiles based on uv_index' do
+  #   # {
+  #   #   :details=>{
+  #   #     :uv_index=>"7 (High)"
+  #   #     }
+  #   #   }
+  # end
+  # it "returns the specified value" do
+  #   uv_index = double("receiver")
+  #   receiver.stub(:message) { :return_value }
+  #   expect(receiver.message).to eq(:return_value)
+  # end
+  # it "returns the specified value" do
+  #   receiver = double("receiver")
+  #   receiver.stub(:message) { :return_value }
+  #   require 'pry'; binding.pry
+  #   expect(receiver.message).to eq(:return_value)
+  # end
 end

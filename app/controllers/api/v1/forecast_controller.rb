@@ -10,10 +10,10 @@ class Api::V1::ForecastController < Api::V1::ApiBaseController
   private
 
     def location
-      CoordinateService.new.get_results(params[:location])
+      @location ||= CoordinateService.new.get_results(params[:location])
     end
 
     def unfiltered_forecast
-      ForecastService.new.get_results(location[:coordinates])
+      @unfiltered_forecast ||= ForecastService.new.get_results(location[:coordinates])
     end
 end

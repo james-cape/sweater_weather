@@ -1,16 +1,17 @@
 class Api::V1::MunchiesController < Api::V1::ApiBaseController
 
   def index
-    render json: MunchiesSerializer.new(restaurants, params[:end]).find_munchies
+    render json: MunchiesSerializer.new(restaurants)
   end
 
   private
 
     def duration
-      DurationService.new.get_duration(params[:start], params[:end])
+      @duration ||= DurationService.new.get_duration(params[:start], params[:end])
     end
 
     def restaurants
-      RestaurantService.new.get_restaurants(params, duration)
+      @results ||= RestaurantService.new.get_restaurants(params, duration)[:businesses]
+      @restaurants ||= Restaurant.new(@results, params[:end])
     end
 end

@@ -7,6 +7,6 @@ class Api::V1::BackgroundsController < Api::V1::ApiBaseController
   private
 
     def images
-      BackgroundService.new.get_results(params[:location], 1)
+      @images ||= BackgroundService.new.get_results(params[:location], 1)
     end
 end

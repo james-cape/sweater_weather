@@ -5,10 +5,8 @@ describe 'logging in' do
     user_1 = create(:user)
 
     params = {
-      user: {
-        email: user_1.email,
-        password: user_1.password,
-      }
+      email: user_1.email,
+      password: user_1.password
     }
 
     post '/api/v1/sessions', params: params
@@ -20,5 +18,19 @@ describe 'logging in' do
 
     expect(results.keys).to contain_exactly(:api_key)
     expect(results[:api_key].class).to eq(String)
+  end
+
+  it 'returns 401 if password is invalid' do
+    user_1 = create(:user)
+
+    params = {
+      email: user_1.email,
+      password: 'invalid'
+    }
+
+    post '/api/v1/sessions', params: params
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(401)
   end
 end

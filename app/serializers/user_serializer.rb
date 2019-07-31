@@ -4,8 +4,6 @@ class UserSerializer
   end
 
   def return_token
-    {
-      api_key: @user.token
-    }
+    { api_key: @user.token }
   end
 end
