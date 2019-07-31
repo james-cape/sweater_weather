@@ -30,6 +30,7 @@ describe 'coordinates API' do
       :short_summary,
       :long_summary,
       :apparent_temperature,
+      :humidity,
       :visibility,
       :uv_index
     )
@@ -50,15 +51,17 @@ describe 'coordinates API' do
   end
 
   it 'generates risk profiles based on uv_index' do
-    expect(ForecastSerializer.new("1", "2").uv_risk(0)).to eq('Low')
-    expect(ForecastSerializer.new("1", "2").uv_risk(1)).to eq('Low')
-    expect(ForecastSerializer.new("1", "2").uv_risk(3)).to eq('Moderate')
-    expect(ForecastSerializer.new("1", "2").uv_risk(5)).to eq('Moderate')
-    expect(ForecastSerializer.new("1", "2").uv_risk(6)).to eq('High')
-    expect(ForecastSerializer.new("1", "2").uv_risk(7)).to eq('High')
-    expect(ForecastSerializer.new("1", "2").uv_risk(8)).to eq('Very High')
-    expect(ForecastSerializer.new("1", "2").uv_risk(10)).to eq('Very High')
-    expect(ForecastSerializer.new("1", "2").uv_risk(11)).to eq('Extreme')
-    expect(ForecastSerializer.new("1", "2").uv_risk(13)).to eq('Extreme')
+    test_serializer = ForecastSerializer.new("1", "2")
+    
+    expect(test_serializer.uv_risk(0)).to eq('Low')
+    expect(test_serializer.uv_risk(1)).to eq('Low')
+    expect(test_serializer.uv_risk(3)).to eq('Moderate')
+    expect(test_serializer.uv_risk(5)).to eq('Moderate')
+    expect(test_serializer.uv_risk(6)).to eq('High')
+    expect(test_serializer.uv_risk(7)).to eq('High')
+    expect(test_serializer.uv_risk(8)).to eq('Very High')
+    expect(test_serializer.uv_risk(10)).to eq('Very High')
+    expect(test_serializer.uv_risk(11)).to eq('Extreme')
+    expect(test_serializer.uv_risk(13)).to eq('Extreme')
   end
 end
