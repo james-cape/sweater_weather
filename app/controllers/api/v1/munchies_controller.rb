@@ -12,6 +12,6 @@ class Api::V1::MunchiesController < Api::V1::ApiBaseController
 
     def restaurants
       @results ||= RestaurantService.new.get_restaurants(params, duration)[:businesses]
-      @restaurants ||= Restaurant.new(@results, params[:end])
+      Restaurant.new(@results, params[:end])
     end
 end

@@ -6,7 +6,7 @@ class RoadTripFacade
   end
 
   def get_road_trip_info
-    @get_road_trip_info ||= ForecastSerializer.new(forecast, @destination).forecast_at(duration[:value])
+    RoadTrip.new(forecast, @destination, duration[:value])
   end
 
   def coordinates
