@@ -19,6 +19,7 @@ describe RestaurantService do
 
     expect(restaurants.class).to eq(Hash)
     expect(restaurants[:businesses].class).to eq(Array)
+
     expect(restaurants[:businesses][0].keys).to include(:id, :name, :location)
     expect(restaurants[:businesses][0][:id].class).to eq(String)
     expect(restaurants[:businesses][0][:name].class).to eq(String)

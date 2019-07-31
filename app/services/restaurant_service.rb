@@ -23,6 +23,6 @@ class RestaurantService
     end
 
     def arrival_time(time_in_sec)
-      (Time.now + time_in_sec).to_i
+      (Time.now + (time_in_sec / (60 * 60)).hours).to_i
     end
 end
